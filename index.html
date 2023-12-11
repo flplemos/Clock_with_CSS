@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Relógio</title>
+</head>
+<body>
+
+    
+    <div class="clock">
+        <div class="numbers">
+            <span style="--i:0"><b>12</b></span>
+            <span style="--i:1"><b>3</b></span>
+            <span style="--i:2"><b>6</b></span>
+            <span style="--i:3"><b>9</b></span>
+            <div class="circle" id="hr"><i></i></div>
+            <div class="circle" id="mn"><i></i></div>
+            <div class="circle" id="sc"><i></i></div>
+        </div>
+    </div>
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hrHand = document.getElementById("hr").querySelector("i");
+            const mnHand = document.getElementById("mn").querySelector("i");
+            const scHand = document.getElementById("sc").querySelector("i");
+
+            function updateClock() {
+                const now = new Date();
+                const hours = now.getHours() % 12 || 12; // Convert 24-hour format to 12-hour
+                const minutes = now.getMinutes();
+                const seconds = now.getSeconds();
+
+                const hrDeg = (hours * 30) + (0.5 * minutes); // 30 degrees per hour
+                const mnDeg = (minutes * 6) + (0.1 * seconds); // 6 degrees per minute
+                const scDeg = seconds * 6; // 6 degrees per second
+
+                hrHand.style.transform = `rotate(${hrDeg}deg) scaleY(0.3)`;
+                mnHand.style.transform = `rotate(${mnDeg}deg) scaleY(0.45)`;
+                scHand.style.transform = `rotate(${scDeg}deg) scaleY(0.55)`;
+            }
+
+            // Atualizar o relógio a cada segundo
+            setInterval(updateClock, 1000);
+
+            // Atualizar o relógio assim que a página carregar
+            updateClock();
+        });
+    </script>
+</body>
+</html>
